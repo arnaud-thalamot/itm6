@@ -1,0 +1,38 @@
+;*********************************************************************
+;
+;                   Monitoring Agent for Windows OS
+;
+;                  Silent Installation Response File
+;
+;*********************************************************************
+;
+;
+;---------------------------------------------------------------------
+[ACTION TYPE]
+;---------------------------------------------------------------------
+PREREQ_CHECK=Yes
+;---------------------------------------------------------------------
+[INSTALLATION SECTION]
+;---------------------------------------------------------------------
+AgentDeploy=yes
+License Agreement=I agree to use the software only in accordance with the installed license.
+Install Folder=IBM Tivoli Monitoring
+Install Directory=C:\PROGRA~1\IBM\ITM
+EncryptionKey=IBMTivoliMonitoringEncryptionKey
+;---------------------------------------------------------------------
+[FEATURES]
+;---------------------------------------------------------------------
+KNT64CMA=Monitoring Agent for Windows OS (86-x64 only)"
+KAC64CMA=32/64 Bit Agent Compatibility Package"
+KUEWICMA=Tivoli Enterprise Services User Interface Extensions"
+
+;---------------------------------------------------------------------
+[DEPLOY FEATURES]
+;---------------------------------------------------------------------
+KNTWICMA=Monitoring Agent for Windows OS"
+KNT64CMA=Monitoring Agent for Windows OS (86-x64 only)"
+KAC64CMA=32/64 Bit Agent Compatibility Package"
+KUEWICMA=Tivoli Enterprise Services User Interface Extensions"
+;*********************************************************************
+;     END OF SILENT INSTALLATION FILE.
+;*********************************************************************

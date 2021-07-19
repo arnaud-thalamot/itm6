@@ -1,0 +1,569 @@
+;*********************************************************************
+;
+;             IBM Tivoli Monitoring Version 06.02.03.01.00             
+;
+;                  Silent Installation Response File                  
+;
+;*********************************************************************
+;
+;			OVERVIEW OF PRODUCT COMPONENTS
+;			==============================
+;
+;	The product is comprised of three basic component types:
+;	--------------------------------------------------------
+;
+;	1. Client - two types
+;	   1a) Desktop edition
+;          1b) Browser edition
+;
+;	2. Server - two types
+;          2a) Client Portal servers
+;	   2b) Status collection and agent connectivity servers
+;
+;	3. Agents - two types
+;	   3a) Monitoring agents
+;	   3b) Adapters and Emitters for third party product(s)
+;
+;
+;	This was the Candle Corporation naming convention for these components:
+;	-----------------------------------------------------------------------
+;
+;	1a. Client Desktop	CandleNet Portal Desktop      (CNP)
+;	1b. Client Browser	CandleNet Portal Browser      (CNP)
+;
+;	2a. Server for Portal  	CandleNet Portal Server       (CNPS)
+;	2b. Server for Agents  	Candle Management Server      (CMS)
+;
+;	3a. Agent 		Candle Management Agent       (client)
+;	3b. Agapter 		Candle Management Adapter     (client)
+;
+;
+;	This is the Tivoli naming convention for the same components:
+;	-------------------------------------------------------------
+;
+;	1a. Client Desktop	Tivoli Enterprise Portal Desktop    (TEP)
+;	1b. Client Browser	Tivoli Enterprise Portal Browser    (TEP)
+;
+;	2a. Server for Portal  	Tivoli Enterprise Portal Server     (TEPS)
+;	2b. Server for Agents  	Tivoli Enterprise Monitoring Server (TEMS)
+;
+;	3a. Agent/Adapter	Tivoli Enterprise Monitoring Agent  (TEMA)
+;
+;
+;	You may references to both new and old component names in the 
+;	following sections, because the installer supports both new 
+;	and old, and must handle migration and compatibility.
+;
+;
+;*********************************************************************
+;
+;			OVERVIEW OF SILENT_AGENT.txt OPERATION
+;			================================
+;
+; 	This is a driver file for silent (unattended) installation and
+; 	configuration of IBM Tivoli Monitoring products.
+;
+; 	If editing this file using Notepad, pull down on Edit and turn off
+; 	Word Wrap; each line should either be a valid control statement or
+; 	it should start with a comment character (;) or a blank line.
+;
+; 	This is the driver file for supported Windows platform (Intel)
+; 	installations.
+;
+;
+; 	To successfully complete a silent installation of Tivoli Monitoring
+; 	products, complete the following steps:
+;
+; 	1. Copy SILENT_AGENT.txt from the CD to a temporary directory (e.g., c:\temp).
+;
+; 	2. Modify c:\temp\SILENT_AGENT.txt so that it is customized correctly and
+;    	   completely for your site. Complete all steps listed below in this 
+;	   file.  Each line of this file must be either a comment (a semi-colon 
+;	   in column one) or a meaningful statement that starts in column one.
+;
+;   	   IMPORTANT: Do not modify any other files that come with the
+;   	   installation (e.g., SETUP.ISS).
+;
+; 	3. After customizing this driver file, invoke the silent install
+;	   using one of the following methods:
+;
+;    	   a) Direct invocation
+;   	   b) SMS invocation
+;
+;    	See below for specific instructions on each method.
+;
+;
+;    	Direct invocation:
+;    	------------------
+;
+;       a. Start a DOS Command Shell.
+;
+;       b. From the shell, cd to the directory containing this installation
+;          (where setup.exe and setup.ins reside).
+;
+;       c. Invoke setup as follows:
+;
+;          start /wait setup /z"/sfC:\temp\SILENT_AGENT.txt" /s /f2"C:\temp\silent_setup.log"
+;		   
+;              You must specify the parameters in the same order listed above.
+;
+;              where: /z"/sf  Specifies the name of the installation driver you have
+;                             customized for your site.  This is a required parameter.
+;                             This file must exist.
+;
+;                     /s   specifies that this is a silent install.  This causes
+;                          no responses to be displayed during installation on the
+;                          installed target workstation.
+;
+;                     /f2  specifies the name of the InstallShield log file.  If
+;                          you do not specify this parameter, the default is
+;                          to create Setup.log in the same location as setup.iss
+;                          This log is the InstallShield log not the install log.
+;                          The install log can be found in the install target
+;                          directory, default c:\IBM\ITM sub-directory
+;                          InstallITM, or on the Windows Boot drive root directory
+;                          if the install aborts before the install location
+;                          has been identified.
+;			   In either case, the
+;                          Setup program must be able to create and write to this
+;                          file.
+;
+;   	SMS invocation:
+;   	---------------
+;
+;     	a. Copy the all the installation files to a LAN-based disk that
+;          SMS will mount on the desired machines.  (Copy all files in the
+;          directory with setup.exe and setup.ins.)
+;
+;      	b. Replace the original SILENT_AGENT.txt file on the LAN disk with your
+;          modified version.
+;
+;      	c. Edit PDF file located with setup.exe and change the Setup invocation as follows:
+;
+;          Setup /z"/sfC:\temp\SILENT_AGENT.txt" /s /f2"C:\temp\silent_setup.log"
+;
+;
+;*********************************************************************
+;
+;
+;			INSTALLATION SETTINGS FOLLOW
+;			============================
+;
+;
+;*********************************************************************
+;---------------------------------------------------------------------
+[ACTION TYPE]
+;---------------------------------------------------------------------
+; This item is used to remove all the IBM Tivoli Monitoring products
+; installed on this machine;
+; The normal setup type is INSTALL for first time use or for
+; any other invocation of setup.exe MODIFY.
+; If you choose to uninstall everything, your TEPS or TEPS2
+; Datasource will be deleted and all files will be removed from
+; your system, only if you specify the Admin ID and password for
+; the database system where your TEPS or TEPS2 database resides.
+;
+; To remove all installed IBM Tivoli Monitoring features uncomment the
+; following line.
+;
+;
+; NOTE: the "UNINSTALLALL" action was deprecated, please use "REMOVEALL"
+; or request uninstalling selected products instead.
+;
+;
+; ATTENTION! The "REMOVEALL" action will uninstall all ITM products from
+; the machine, and ITM installation directory (typically C:\IBM\ITM) will 
+; be removed!
+;
+; REMOVEALL=Yes
+;
+;
+; ATTENTION: The "UNINSTALLSELECTED" action will uninstall any non- 
+; framework ITM component selected in the FEATURE section below. 
+; To select a component to be uninstalled, uncomment the 
+; UNINSTALLSELECTED=Yes statement below and the feature to be
+; removed in the FEATURE section and the selected feature will
+; be removed.
+; When the last component has been removed, the ITM installation
+; directory (typically C:\IBM\ITM) will be removed as well.
+;
+; UNINSTALLSELECTED=Yes
+;
+;---------------------------------------------------------------------
+[INSTALLATION SECTION]
+;---------------------------------------------------------------------
+;
+; Complete each step below.
+;
+;
+; Step 1: License Agreement.
+; The installation will copy license files to a directory called License in your
+; install directory.  Uncomment the following statement to agree to the license.
+;
+License Agreement=I agree to use the software only in accordance with the installed license.
+;
+; Note: You must agree with and uncomment the preceding statement to
+; proceed with the silent installation.
+;
+;---------------------------------------------------------------------
+;
+; Step 2: Assign the full path name of the desired directory for
+; installed products to product home Directory if different from the default:
+;
+Install Directory=<%=@CANDLE_HOME%>
+;
+; IMPORTANT NOTES:
+;
+; 1. Do not use long file names. Use only an "8.3" format.
+; Use of long file names will result in a failed installation.
+;
+; 2. To simplify the management of Tivoli Monitoring products on Windows
+; systems across your enterprise, use the same directory name for
+; Tivoli Monitoring products on each machine. If you use different
+; directory names on each machine, you will not be able to use the
+; "remote" features of several product configuration dialogs.
+;
+; 3. If you are installing on a machine where the product is already
+; installed, the current directory will be used irregardless of
+; what you specify here.
+;
+;---------------------------------------------------------------------
+;
+; Step 3: Assign the desired name of the folder that appears in the
+; Windows Start -> Programs menu.  Use this option if you wish to use
+; a folder name different from the default.
+; It is best to use the same folder name on all Windows systems.
+;
+Install Folder=IBM Tivoli Monitoring
+;
+; If you are installing on a machine where the product is already
+; installed, the current folder will be used irregardless of what you
+; specify here.
+;
+; This folder name does not affect the directory into which the
+; product is installed.  Use the "Install Directory" setting to 
+; change the installation directory.
+;---------------------------------------------------------------------
+;
+; Step 4: Enter the encryption key to encrypt your local passwords
+; and IDs. It must be 32 characters or will be padded with "9"'s.
+; If a parameter is left empty, the default encryption key is used. 
+;
+;
+EncryptionKey=<%=@ENCRYPTION_KEY%>
+;
+; Ensure that the same encryption key is used across the whole environment.
+;
+;---------------------------------------------------------------------
+[FEATURES]
+;---------------------------------------------------------------------
+;
+; Step 5: In the list of features types listed below, uncomment the
+; components you intend to install on this machine by removing the
+; semi-colon from column one in front of the desired component:
+;
+; NOTE: Components have their own internal co-requisite behavior.
+;--------------------------------------------------------------------
+;*********************************************************************
+;
+; 		TIVOLI ENTERPRISE MONITORING AGENT 
+;		    TEMA INSTALLATION SECTION
+;
+; Any Feature selected that ends in client will cause the TEMA Framework and specific Agent to be installed.
+;
+;*********************************************************************
+KGLWIclient=Tivoli Enterprise Monitoring Agent Framework
+KNTWIclient=Monitoring Agent for Windows OS
+;KNT64client=Monitoring Agent for Windows OS (86-x64 only)
+;KR2WIclient=Agentless Monitoring for Windows Operating Systems
+;KR3WIclient=Agentless Monitoring for AIX Operating Systems
+;KR4WIclient=Agentless Monitoring for Linux Operating Systems
+;KR5WIclient=Agentless Monitoring for HP-UX Operating Systems
+;KR6WIclient=Agentless Monitoring for Solaris Operating Systems
+;KUMWIclient=Universal Agent
+;KAC64client=32/64 Bit Agent Compatibility Package
+;KUEWIclient=Tivoli Enterprise Services User Interface Extensions
+;
+;---------------------------------------------------------------------
+[DEPLOY FEATURES]
+;---------------------------------------------------------------------
+;
+; Step 6: In the list of features listed below, uncomment the feature
+; you intend to setup for deployment by removing the semi-colon from
+; column one in front of the desired component:
+;
+;KNTWIclient=Monitoring Agent for Windows OS
+;KNT64client=Monitoring Agent for Windows OS (86-x64 only)
+;KR2WIclient=Agentless Monitoring for Windows Operating Systems
+;KR3WIclient=Agentless Monitoring for AIX Operating Systems
+;KR4WIclient=Agentless Monitoring for Linux Operating Systems
+;KR5WIclient=Agentless Monitoring for HP-UX Operating Systems
+;KR6WIclient=Agentless Monitoring for Solaris Operating Systems
+;KUMWIclient=Universal Agent
+;KAC64client=32/64 Bit Agent Compatibility Package
+;KUEWIclient=Tivoli Enterprise Services User Interface Extensions
+;
+;*********************************************************************
+;
+;
+;			CONFIGURATION SETTINGS FOLLOW
+;			=============================
+;
+;
+;*********************************************************************
+;
+;  BEGIN CONFIGURATION SECTION
+;  To use defaults when products are installed locally leave all
+;  parameters commented.
+;
+;
+;*********************************************************************
+;
+; 		TIVOLI ENTERPRISE MONITORING AGENT 
+;			TEMA CONFIGURATION
+;
+;*********************************************************************
+;
+; TEMA CONFIGURATION SECTION
+; To configure Tivoli Enterprise Monitoring Agents, complete each of 
+; the steps in the following client_CONFIG section.  Do not delete any
+; uncommented lines below.
+;
+; NOTE: The continued use of client Variables names is intentional.
+;
+[client_CONFIG]
+;
+;--------------------------------------------------
+;      TEMA-to-TEMS Communications Protocol
+;
+; You may use between 1 and three protocols for
+; TEMS communication. Each protocol may be specified
+; only once. The order specified determines the
+; order of precedence.  Available protocols must
+; be specified as follows:
+;
+;     =IP.PIPE
+;     =IP.SPIPE
+;     =IP.UDP
+;     =SNA
+;
+; In the example below, only IP.UDP is used:
+;
+Protocol1=<%=@PROTOCOL1%>
+;Protocol2=
+;Protocol3=
+;
+;------------------------------------
+;     	TEMA-to-TEMS IP.UDP Settings
+;------------------------------------
+;
+; Assign the port number used by the TEMS to TCPIP_Port
+; variable.  You may also assign port pools (e.g.,
+; TCPIP/Port=1918 5200-6023 16345-16756) in batches
+; of 1024 or less.
+;
+;TCPIP_Port=1918
+;
+; If using IP.UDP to communicate with the TEMS, assign
+; the host name or IP address of the computer where
+; the TEMS resides to TCPIP_Host:
+;
+;TCPIP_Host=hostname
+;
+;------------------------------------
+;     	TEMA-to-TEMS IP.PIPE Settings
+;------------------------------------
+;
+; If using IP.PIPE, assign the desired port number to
+; the IPPIPE_Port variable:
+;
+;IPPIPE_Port=1918
+;
+; Assign the host name or IP address of the computer
+; that is running the primary Hub TEMS to IPPIPE_Host:
+;
+;IPPIPE_Host=hostname
+;
+; If address translation is used at your site, specify
+; the name of the partition:
+;
+;IPPIPE_Partition=
+;
+;------------------------------------
+;     	TEMA-to-TEMS IP.SPIPE Settings
+;------------------------------------
+;
+; If using IP.SPIPE, assign the desired port number to
+; the IPPIPE_Port variable:
+;
+IPSPIPE_Port=<%=@IPSPIPE_PORT%>
+;
+; Assign the host name or IP address of the computer
+; that is running the primary Hub TEMS to IPPIPE_Host:
+;
+IPSPIPE_Host=<%=@IPSPIPE_HOST%>
+;
+;------------------------------------
+;     	TEMA-to-TEMS SNA Settings
+;------------------------------------
+;
+; If using SNA, specify the Network Name,
+; LU6.2 LOGMODE, and LU Name of the TEMS:
+;
+;SNA_Netname=primary_net_name
+;SNA_Logmode=CANCTDCS
+;SNA_LUName=primary_lu_name
+;
+; Uncomment the desired TP Name (only one of
+; them) to be used for the Hub TEMS (the default
+; is SNASOCKETS]:
+;
+;SNA_TPName=SNASOCKETS
+;SNA_TPName=KDCLLBD
+;SNA_TPName=KDTMSNAP.QAUTOMON
+;
+;--------------------------------------------------
+;             Configure Backup-TEMS
+;
+; Do you want to configure the agents to use a
+; backup TEMS in the event that the primary TEMS
+; becomes unavailable? (If you are unsure, do
+; not configure a backup TEMS at this time.  You
+; can always add that feature later.)
+;
+; Uncomment your answer:
+;
+FTO Flag=<%=@FTO_FLAG%>
+
+
+;
+; Note: If you do not want a backup TEMS, you are finished
+; modifying this Section. Proceed to the next section until
+; finish modifying this file.
+;
+;--------------------------------------------------
+;
+;   Agent-to-Backup-TEMS Communications Protocol
+;
+; You may use between 1 and three protocols for
+; TEMS communication. Each protocol may be specified
+; only once. The order specified determines the
+; order of precedence.  Available protocols must
+; be specified as follows:
+;
+;     =IP.PIPE
+;     =IP.SPIPE
+;     =IP.UDP
+;     =SNA
+;
+; In the example below, only IP.UDP is used:
+;
+FTO_Protocol1=<%=@FTO_PROTOCOL1%>
+;FTO_Protocol2=
+;FTO_Protocol3=
+;
+;-----------------------------------------
+;     	TEMA-to-BackupTEMS IP.UDP Settings
+;-----------------------------------------
+;
+;     Agent-to-Backup-TEMS IP.UDP Settings
+;
+; If you are using IP.UDP to communicate with the
+; backup TEMS, assign the host name or IP address
+; of the computer that is running the backup TEMS
+; to FTO_TCPIP_Host:
+;
+;FTO_TCPIP_Host=hostname
+;
+;-----------------------------------------
+;     	TEMA-to-BackupTEMS IP.PIPE Settings
+;-----------------------------------------
+;
+; If you are using IP.PIPE to communicate with the
+; backup TEMS, assign the host name or IP address
+; of the computer that is running the backup TEMS
+; to FTO_IPPIPE_Host:
+;
+;FTO_IPPIPE_Host=hostname
+;
+;-----------------------------------------
+;     	TEMA-to-BackupTEMS IP.SPIPE Settings
+;-----------------------------------------
+;
+; If you are using IP.PIPE to communicate with the
+; backup TEMS, assign the host name or IP address
+; of the computer that is running the backup TEMS
+; to FTO_IPSPIPE_Host:
+;
+FTO_IPSPIPE_Host=<%=@FTO_IPSPIPE_HOST%>
+;
+;-----------------------------------------
+;     	TEMA-to-BackupTEMS SNA Settings
+;-----------------------------------------
+;
+; If using SNA, specify the Network Name,
+; LU6.2 LOGMODE, and LU Name of the backup TEMS:
+;
+;FTO_SNA_Netname=backup_net_name
+;FTO_SNA_Logmode=CANCTDCS
+;FTO_SNA_LUName=backup_lu_name
+;
+; Uncomment the desired TP Name (only one of
+; them) to be used for the Hub TEMS (the default
+; is SNASOCKETS]:
+;
+;FTO_SNA_TPName=SNASOCKETS
+;FTO_SNA_TPName=KDCLLBD
+;FTO_SNA_TPName=KDTMSNAP.QAUTOMON
+;
+; ------------------------------------------------------------
+;               Notes on MQSeries
+;
+; If you are installing the Monitoring Agent for MQSeries and
+; you want to configure MQSeries to monitor a particular
+; Queue Manager, uncomment and assign the name of that
+; Queue Manager to the variable AssignedQueueManager (e.g.,
+; AssignedQueueManager=Sales_MessageQMGR):
+;
+;AssignedQueueManager=QMGR
+;
+; Notes: 1. If you do not uncomment and assign a value to
+;           AssignedQueueManager, then this agent will
+;           monitor the default MQSeries Queue Manager.
+;
+;        2. The name you assign above is inserted into the
+;           mq.cfg file only if no previous assignment has
+;           been made.
+;
+;        3. To monitor multiple queue managers, you must
+;           configure multiple instances of the MQSeries
+;           monitoring agent.  That function is not
+;           available through silent installation; you
+;           must complete the installation and then run
+;           the "Manage Tivoli Monitoring Services" program.
+;
+; END OF TEMA CONFIGURATION SECTION
+;
+[AGENT_INSTANCES]
+;
+; You can provide the names for any new instances of installed agents. 
+; Multiple names must be separated by a space or tab characters.
+; During silent installation, instances are created and configured accordingly.
+; In the example below, for the Universal Agent, instances named "inst1" and "inst2" are provided:
+;
+;KUMWIclient=inst1 inst2
+;
+; NOTE: For single-instance agents, any provided instance entries are ignored.
+;
+;
+;*********************************************************************
+; END OF SILENT INSTALLATION DRIVER FILE.
+;*********************************************************************
+;
+; Save your changes and run Setup by following the instructions at the
+; top of this file.
+;
+;*********************************************************************
+
+
+

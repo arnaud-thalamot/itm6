@@ -1,0 +1,41 @@
+{
+  "name": "itm6",
+  "description": "Installs/Configures ITM6 Monitoring Agent and BlueCare Agent",
+  "long_description": "## DESCRIPTION\n\nProvides LWRP's and service recipes to install and configure IBM ITM6 monitoring agent and BlueCare agent\n",
+  "maintainer": "Arnaud THALAMOT",
+  "maintainer_email": "arnaud.thalamot@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}
